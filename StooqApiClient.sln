@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StooqApiClient", "StooqApiClient\StooqApiClient.csproj", "{7F8D975C-C4C3-4FFD-B5F5-74CE4E035B15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StooqApiClient.Tests", "StooqApiClient.Tests\StooqApiClient.Tests.csproj", "{5C9F16B4-A912-4FCB-A159-BE0B7C8C3414}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7F8D975C-C4C3-4FFD-B5F5-74CE4E035B15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F8D975C-C4C3-4FFD-B5F5-74CE4E035B15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F8D975C-C4C3-4FFD-B5F5-74CE4E035B15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F8D975C-C4C3-4FFD-B5F5-74CE4E035B15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C9F16B4-A912-4FCB-A159-BE0B7C8C3414}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C9F16B4-A912-4FCB-A159-BE0B7C8C3414}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C9F16B4-A912-4FCB-A159-BE0B7C8C3414}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C9F16B4-A912-4FCB-A159-BE0B7C8C3414}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {72BCD6EB-2031-41EC-BA46-849A10BBD269}
+	EndGlobalSection
+EndGlobal
