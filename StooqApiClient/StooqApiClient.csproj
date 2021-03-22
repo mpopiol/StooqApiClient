@@ -1,16 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <Authors>mpopiol</Authors>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Authors>Mariusz Popiół</Authors>
     <Company>mpopiol</Company>
     <RepositoryUrl>https://github.com/mpopiol/StooqApiClient</RepositoryUrl>
     <PackageProjectUrl>https://github.com/mpopiol/StooqApiClient</PackageProjectUrl>
     <Description>Fastest library to get free historical stock data from Stooq. Unique tickers allow to access multiple stock exchanges around the world.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageTags>stock, stooq, data, historical data, candles, currency</PackageTags>
+    <PackageTags>api, stock, stooq, data, historical, candles, currency</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <FileVersion>1.0.1.0</FileVersion>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

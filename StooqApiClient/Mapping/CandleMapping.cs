@@ -1,5 +1,6 @@
 ﻿using StooqApiClient.DTO;
 using TinyCsvParser.Mapping;
+using TinyCsvParser.Model;
 
 namespace StooqApiClient.Mapping
 {
@@ -12,7 +13,16 @@ namespace StooqApiClient.Mapping
             MapProperty(2, x => x.High);
             MapProperty(3, x => x.Low);
             MapProperty(4, x => x.Close);
-            MapProperty(5, x => x.Volume);
+
+            MapUsing(VolumeMapper);
+        }
+
+        private bool VolumeMapper(Candle inProgressEntity, TokenizedRow rowData)
+        {
+            if (rowData.Tokens.Length == 6 && uint.TryParse(rowData.Tokens[5], out var volume))
+                inProgressEntity.Volume = volume;
+
+            return true;
         }
     }
 }
