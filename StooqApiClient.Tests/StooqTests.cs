@@ -61,5 +61,35 @@ namespace StooqApiClient.Tests
             result.Status.Should().Be(HttpStatusCode.OK);
             result.Results.Max(candle => candle.Date).Should().BeBefore(toDate.AddMilliseconds(1));
         }
+
+        [Theory]
+        [InlineData("usd")]
+        [InlineData("pln")]
+        [InlineData("hkd")]
+        public async Task GetHistoricalDataAsync_GBXCurrency_ScalePoundToPence(string currency)
+        {
+            var testGbxRequest = new StooqRequest
+            {
+                Ticker = $"GBX{currency}"
+            };
+            var gbxResult = await Stooq.GetHistoricalDataAsync(testGbxRequest);
+
+            var testGbpRequest = new StooqRequest
+            {
+                Ticker = $"GBP{currency}"
+            };
+            var gbpResult = await Stooq.GetHistoricalDataAsync(testGbpRequest);
+
+            var margin = 0.01m;
+
+            var elementRatioChecks = gbxResult.Results.Zip(gbpResult.Results).Select(zipped => Math.Abs((zipped.Second.Close / 100) - zipped.First.Close) <= margin).ToList();
+
+            elementRatioChecks.Should().AllBeEquivalentTo(true);
+
+            gbxResult.Status.Should().Be(HttpStatusCode.OK);
+            gbxResult.Results.Should().NotBeEmpty();
+            gbpResult.Status.Should().Be(HttpStatusCode.OK);
+            gbpResult.Results.Should().NotBeEmpty();
+        }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using StooqApiClient.DTO;
 using StooqApiClient.Exceptions;
+using StooqApiClient.Extension;
 using StooqApiClient.Mapping;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -15,6 +17,11 @@ namespace StooqApiClient
     {
         public static string ApiBaseAddress = "https://stooq.com/q/d/l";
 
+        private static readonly CurrencyMapping[] currencyMappings = new []
+        {
+            new CurrencyMapping { SourceCurrency = "GBX" , TargetCurrency = "GBP", TargetToSourceRatio = 0.01m }
+        };
+
         private static readonly HttpClient httpClient = new HttpClient();
         private static readonly CsvParser<Candle> csvParser = new CsvParser<Candle>(
             new CsvParserOptions(true, ','), 
@@ -24,6 +31,23 @@ namespace StooqApiClient
         {
             try
             {
+                var currencyMapping = currencyMappings.FirstOrDefault(mapping => 
+                    request.Ticker.StartsWith(mapping.SourceCurrency) ||
+                    request.Ticker.EndsWith(mapping.SourceCurrency));
+                if (currencyMapping != null)
+                {
+                    var requestWithMapping = (StooqRequest)request.Clone();
+                    requestWithMapping.Ticker = requestWithMapping.Ticker.Replace(currencyMapping.SourceCurrency, currencyMapping.TargetCurrency);
+                    var targetData = await GetHistoricalDataAsync(requestWithMapping);
+
+                    foreach (var candle in targetData.Results)
+                    {
+                        candle.MultiplyValues(currencyMapping.TargetToSourceRatio);
+                    }
+
+                    return targetData;
+                }
+
                 var responseStream = await GetResponseStreamAsync(request).ConfigureAwait(false);
 
                 return GetParsedResponse(responseStream);
@@ -63,5 +87,11 @@ namespace StooqApiClient
             };
         }
 
+        private class CurrencyMapping
+        {
+            public string SourceCurrency { get; set; }
+            public string TargetCurrency { get; set; }
+            public decimal TargetToSourceRatio { get; set; }
+        }
     }
 }
